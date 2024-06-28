@@ -1,0 +1,58 @@
+#pragma once
+#include <stdexcept>
+#include <iostream>
+#include "Node.hpp"
+
+template <typename T, int k = 2>
+class Tree
+{
+public:
+    Tree() : root(nullptr), k_arry(k) {}
+    
+    void add_root(Node<T> &root)
+    {
+        this->root = &root;
+    }
+
+    void add_sub_node(Node<T> &parent, Node<T> &son)
+    {
+        std::cout << parent.num_children() << std::endl;
+        if (parent.num_children() >= k_arry)
+        {
+            throw std::invalid_argument("Parent node is full");
+        }
+        parent.addSon(son);
+    }
+
+private:
+    Node<T> *root;
+    size_t k_arry;
+};
+#pragma once
+#include <vector>
+
+template <typename T>
+class Node
+{
+public:
+    Node(T t) : t(t) {}
+
+    void addSon(Node<T> &son)
+    {
+        children.push_back(&son);
+    }
+
+    T get_value() const
+    {
+        return t;
+    }
+
+    size_t num_children() const
+    {
+        return children.size();
+    }
+
+private:
+    T t;
+    std::vector<Node<T>*> children;
+};
