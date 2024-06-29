@@ -17,10 +17,21 @@ public:
     {
         return t;
     }
-
+    const std::vector<Node<T> *> &get_children() const
+    {
+        return children;
+    }
     size_t num_children() const
     {
         return children.size();
+    }
+    bool operator==(const Node<T> &other) const
+    {
+        return t == other.t;
+    }
+    bool operator!=(const Node<T> &other) const
+    {
+        return t != other.t;
     }
 
 private:

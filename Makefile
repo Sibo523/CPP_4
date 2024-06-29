@@ -1,14 +1,17 @@
-CXX = clang++
-flags = -Wall -Wextra -g
-OBJ = $(wildcard *.hpp) $(wildcard *.cpp)
+CXX = g++
+CXXFLAGS = -Wall -Wextra -std=c++11
+INCLUDES = -I.
+SRC = $(wildcard *.cpp)
+OBJ = $(SRC:.cpp=.o)
+TARGET = Demo
 
-all: Demo
+all: $(TARGET)
 
-Demo: main.o
-	$(CXX) $(flags) -o $@ $^
+$(TARGET): $(OBJ)
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $@ $^
 
-main.o: main.cpp $(OBJ)
-	$(CXX) $(flags) -c -o $@ main.cpp
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	rm *.o Demo
+	rm -f $(OBJ) $(TARGET)
