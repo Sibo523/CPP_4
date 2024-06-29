@@ -322,3 +322,64 @@ private:
     std::stack<Node<T> *> stack;
     Node<T> *current;
 };
+
+template <typename T>
+class heapIterator
+{
+public:
+    heapIterator(Node<T> *root)
+    {
+        if (root == nullptr)
+        {
+            current = nullptr;
+            return;
+        }
+        queue.push(root);
+        current = queue.front();
+    }
+
+    heapIterator &operator++()
+    {
+        if (!queue.empty())
+        {
+            current = queue.front();
+            queue.pop();
+            for (auto child : current->get_children())
+            {
+                queue.push(child);
+            }
+            if (!queue.empty())
+            {
+                current = queue.front();
+            }
+            else
+            {
+                current = nullptr;
+            }
+        }
+        else
+        {
+            current = nullptr;
+        }
+        return *this;
+    }
+
+    Node<T> &operator*()
+    {
+        return *current;
+    }
+
+    bool operator!=(const heapIterator &other) const
+    {
+        return current != other.current;
+    }
+
+    Node<T> *operator->()
+    {
+        return current;
+    }
+
+private:
+    std::priority_queue<Node<T> *> queue;
+    Node<T> *current;
+};
