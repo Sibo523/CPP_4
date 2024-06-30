@@ -6,6 +6,7 @@
 #include <string>
 #include "Node.hpp"
 #include "tree.hpp"
+#include <SFML/Graphics.hpp>
 
 using namespace std;
 
@@ -27,7 +28,7 @@ int main()
     tree.add_sub_node(n1, n4);
     tree.add_sub_node(n2, n5);
     std::cout << "\n";
-
+    tree.draw();
     // The tree should look like:
     /**
      *       root = 1.1
@@ -91,7 +92,7 @@ int main()
     three_ary_tree.add_sub_node(root_node2, n3);
     three_ary_tree.add_sub_node(n1, n4);
     three_ary_tree.add_sub_node(n2, n5);
-
+    three_ary_tree.draw();
     // The tree should look like:
     /**
      *       root = 1.1
@@ -100,4 +101,16 @@ int main()
      *   /        |
      *  1.5      1.6
      */
+    Tree<string> string_tree; // Binary tree that contains strings.
+    Node<string> root_node3{"root"};
+    string_tree.add_root(root_node3);
+    Node<string> n6{"son1"};
+    Node<string> n7{"son2"};
+    Node<string> n8{"son3"};
+    Node<string> n9{"son4"};
+    string_tree.add_sub_node(root_node3, n6);
+    string_tree.add_sub_node(root_node3, n7);
+    string_tree.add_sub_node(n6, n8);
+    string_tree.add_sub_node(n6, n9);
+    string_tree.draw();
 }
