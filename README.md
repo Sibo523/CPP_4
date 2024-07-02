@@ -85,3 +85,5 @@ Ensure SFML is installed on your system. Include `Tree.hpp` and `Iterators.hpp` 
 
 Enjoy exploring and manipulating trees with this comprehensive library!
 
+(phind.com helped me with writing this readme)
+
