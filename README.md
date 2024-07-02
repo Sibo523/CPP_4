@@ -43,6 +43,8 @@ Invoke the draw method on a tree object to launch a window displaying the tree s
 Employ the iterators provided to traverse the tree according to your preferred order. Each iterator facilitates increment operations and comparison for iteration control.
 
 ## Example
+For C++ code:
+```
 // Add child nodes
 Node<int>* childNode1 = myTree.addChild(rootNode, 2);
 Node<int>* childNode2 = myTree.addChild(rootNode, 3);
@@ -56,6 +58,7 @@ while (!bfs.isDone()) {
 
 return 0;
 }
+```
 
 ## Dependencies
 
