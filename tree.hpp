@@ -17,14 +17,9 @@ template <typename T, int k = 2>
 class Tree
 {
 public:
-    /**
-     * @brief Default constructor for the Tree class.
-     */
     Tree() : root(nullptr) {}
+    ~Tree() = default;
 
-    /**
-     * @brief Draws the tree visualization in a window using SFML.
-     */
     void draw()
     {
         sf::RenderWindow window(sf::VideoMode(800, 600), "Tree Visualization"); // Create a window
@@ -37,9 +32,10 @@ public:
                     window.close();
             }
 
-            window.clear(sf::Color::White); // Clear the window, set the background color to white
-
-            draw_help(window, root, 400, 50, 150, 100, 0); // calls the draw_help function to draw the tree
+            window.clear(sf::Color::White);                      // Clear the window, set the background color to white
+            sf::Font font;                                       // Create a font
+            font.loadFromFile("fonts/arial.ttf");                // Load the font
+            draw_help(window, root, 400, 50, 150, 100, 0, font); // calls the draw_help function to draw the tree
 
             window.display(); // Display the window
         }
@@ -181,6 +177,30 @@ public:
     {
         return end_bfs_scan();
     }
+    DfsIterator<T> begin_dfs()
+    {
+        return DfsIterator<T>(root);
+    }
+    DfsIterator<T> end_dfs()
+    {
+        return DfsIterator<T>(nullptr);
+    }
+    heapIterator<T> begin_heap()
+    {
+        return heapIterator<T>(root);
+    }
+    heapIterator<T> end_heap()
+    {
+        return heapIterator<T>(nullptr);
+    }
+    Node<T> *get_root()
+    {
+        return root;
+    }
+    int get_k()
+    {
+        return k;
+    }
 
 private:
     Node<T> *root; // Pointer to the root node of the tree
@@ -196,7 +216,7 @@ private:
      * @param yOffset The vertical offset between nodes.
      * @param depth The depth of the current node in the tree.
      */
-    void draw_help(sf::RenderWindow &window, Node<T> *node, float x, float y, float xOffset, float yOffset, int depth)
+    void draw_help(sf::RenderWindow &window, Node<T> *node, float x, float y, float xOffset, float yOffset, int depth, sf::Font font)
     {
         if (!node)
             return;
@@ -217,7 +237,7 @@ private:
             window.draw(lines);
 
             // Recursive call to draw child nodes
-            draw_help(window, node->get_children()[i], childX, childY, xOffset / 2, yOffset, depth + 1);
+            draw_help(window, node->get_children()[i], childX, childY, xOffset / 2, yOffset, depth + 1, font);
         }
 
         // Draw current node (as a circle, for example)
@@ -227,11 +247,7 @@ private:
         window.draw(shape);
 
         // Create and draw text
-        sf::Font font;
-        if (!font.loadFromFile("fonts/arial.ttf"))
-        {
-            return;
-        }
+
         sf::Text text;
         text.setFont(font);
         std::string s = stringlize(node->get_value()); // made this because you can't to_string a string :( and didn't wanted to break to cases

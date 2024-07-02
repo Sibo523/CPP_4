@@ -12,7 +12,10 @@ public:
     {
         children.push_back(&son);
     }
-
+    void clearChildren()
+    {
+        children.clear();
+    }
     T get_value() const
     {
         return t;

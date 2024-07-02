@@ -22,6 +22,13 @@ public:
         }
         current = stack.top();
     }
+    ~inOrderIterator()
+    {
+        while (!stack.empty())
+        {
+            stack.pop();
+        }
+    }
 
     inOrderIterator &operator++()
     {
@@ -78,6 +85,13 @@ template <typename T>
 class preOrderIterator
 {
 public:
+    ~preOrderIterator()
+    {
+        while (!stack.empty())
+        {
+            stack.pop();
+        }
+    }
     preOrderIterator(Node<T> *root)
     {
         if (root == nullptr)
@@ -141,6 +155,17 @@ template <typename T>
 class postOrderIterator
 {
 public:
+    ~postOrderIterator()
+    {
+        while (!stack.empty())
+        {
+            stack.pop();
+        }
+        while (!temp_stack.empty())
+        {
+            temp_stack.pop();
+        }
+    }
     postOrderIterator(Node<T> *root)
     {
         if (root == nullptr)
@@ -203,6 +228,13 @@ template <typename T>
 class bfsIterator
 {
 public:
+    ~bfsIterator()
+    {
+        while (!queue.empty())
+        {
+            queue.pop();
+        }
+    }
     bfsIterator(Node<T> *root)
     {
         if (root == nullptr)
@@ -265,6 +297,13 @@ template <typename T>
 class DfsIterator
 {
 public:
+    ~DfsIterator()
+    {
+        while (!stack.empty())
+        {
+            stack.pop();
+        }
+    }
     DfsIterator(Node<T> *root)
     {
         if (root == nullptr)
@@ -327,6 +366,13 @@ template <typename T>
 class heapIterator
 {
 public:
+    ~heapIterator()
+    {
+        while (!queue.empty())
+        {
+            queue.pop();
+        }
+    }
     heapIterator(Node<T> *root)
     {
         if (root == nullptr)
@@ -335,14 +381,14 @@ public:
             return;
         }
         queue.push(root);
-        current = queue.front();
+        current = queue.top();
     }
 
     heapIterator &operator++()
     {
         if (!queue.empty())
         {
-            current = queue.front();
+            current = queue.top();
             queue.pop();
             for (auto child : current->get_children())
             {
@@ -350,7 +396,7 @@ public:
             }
             if (!queue.empty())
             {
-                current = queue.front();
+                current = queue.top();
             }
             else
             {
@@ -380,6 +426,6 @@ public:
     }
 
 private:
-    std::priority_queue<Node<T> *> queue;
+    std::priority_queue<Node<T> *> queue; // queue = priority_queue just short :)
     Node<T> *current;
 };
