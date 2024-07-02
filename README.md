@@ -46,17 +46,32 @@ Employ the iterators provided to traverse the tree according to your preferred o
 For C++ code:
 ```
 // Add child nodes
-Node<int>* childNode1 = myTree.addChild(rootNode, 2);
-Node<int>* childNode2 = myTree.addChild(rootNode, 3);
+int main(){
+    Node<double> root_node{1.1};
+    Tree<double> tree; // Binary tree that contains doubles.
+    tree.add_root(root_node);
 
-// Traverse using BFS
-BFSIterator<int> bfs(myTree.getRoot());
-while (!bfs.isDone()) {
-    std::cout << bfs.currentItem() << " ";
-    bfs.next();
-}
+    Node<double> n1{1.2};
+    Node<double> n2{1.3};
+    Node<double> n3{1.4};
+    Node<double> n4{1.5};
+    Node<double> n5{1.6};
+    tree.add_sub_node(root_node, n1);
+    tree.add_sub_node(root_node, n2);
+    tree.add_sub_node(n1, n3);
+    tree.add_sub_node(n1, n4);
+    tree.add_sub_node(n2, n5);
 
-return 0;
+
+    for (auto node : tree)
+    {
+
+        if (node != tree.begin_bfs_scan()->get_value())
+            cout << ", ";
+        cout << node.get_value();
+    } // same as BFS: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
+
+    return 0;
 }
 ```
 
