@@ -65,7 +65,6 @@ int main(){
 
     for (auto node : tree)
     {
-
         if (node != tree.begin_bfs_scan()->get_value())
             cout << ", ";
         cout << node.get_value();
