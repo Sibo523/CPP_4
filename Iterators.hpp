@@ -363,11 +363,18 @@ private:
     Node<T> *current;
 };
 // heapIterator class template for traversing trees in heap order.
+/**
+ * @brief A class representing an iterator for a heap data structure.
+ * 
+ * @tparam T The type of elements stored in the heap.
+ */
 template <typename T>
 class heapIterator
 {
 public:
-    // Destructor: Clears the heap to prevent memory leaks.
+    /**
+     * @brief Destructor: Clears the heap to prevent memory leaks.
+     */
     ~heapIterator()
     {
         // Empties the heap vector by popping all elements.
@@ -377,7 +384,11 @@ public:
         }
     }
 
-    // Constructor: Initializes the iterator with the root node of a tree.
+    /**
+     * @brief Constructor: Initializes the iterator with the root node of a tree.
+     * 
+     * @param root The root node of the tree.
+     */
     heapIterator(Node<T> *root)
     {
         // If the root is null, set the current node to null and return.
@@ -400,7 +411,11 @@ public:
         }
     }
 
-    // Prefix increment operator: Moves the iterator to the next node in heap order.
+    /**
+     * @brief Prefix increment operator: Moves the iterator to the next node in heap order.
+     * 
+     * @return A reference to the updated iterator.
+     */
     heapIterator &operator++()
     {
         // If the heap is not empty, adjust the heap and set the current node.
@@ -425,29 +440,50 @@ public:
         return *this;
     }
 
-    // Dereference operator: Returns a reference to the current node.
+    /**
+     * @brief Dereference operator: Returns a reference to the current node.
+     * 
+     * @return A reference to the current node.
+     */
     Node<T> &operator*()
     {
         return *current;
     }
 
-    // Inequality operator: Checks if two iterators are not equal based on their current nodes.
+    /**
+     * @brief Inequality operator: Checks if two iterators are not equal based on their current nodes.
+     * 
+     * @param other The other iterator to compare with.
+     * @return True if the iterators are not equal, false otherwise.
+     */
     bool operator!=(const heapIterator &other) const
     {
         return current != other.current;
     }
 
-    // Arrow operator: Provides pointer access to the current node.
+    /**
+     * @brief Arrow operator: Provides pointer access to the current node.
+     * 
+     * @return A pointer to the current node.
+     */
     Node<T> *operator->()
     {
         return current;
     }
 
 private:
-    // Compare functor for ordering nodes in the heap.
+    /**
+     * @brief Compare functor for ordering nodes in the heap.
+     */
     struct Compare
     {
-        // Defines the comparison criteria for the heap (e.g., based on node values).
+        /**
+         * @brief Defines the comparison criteria for the heap (e.g., based on node values).
+         * 
+         * @param a The first node to compare.
+         * @param b The second node to compare.
+         * @return True if the first node is greater than the second node, false otherwise.
+         */
         bool operator()(Node<T> *a, Node<T> *b) const
         {
             return *a > *b; // This needs to be defined according to the node comparison logic.

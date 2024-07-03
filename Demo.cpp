@@ -7,6 +7,7 @@
 #include "Node.hpp"
 #include "tree.hpp"
 #include <SFML/Graphics.hpp>
+#include "Complex.hpp"
 
 using namespace std;
 
@@ -113,5 +114,19 @@ int main()
     string_tree.add_sub_node(n6, n8);
     string_tree.add_sub_node(n6, n9);
     string_tree.draw();
+
+    Tree<Complex> complex_tree;
+    Node<Complex> root_node4{Complex(1, 1)};
+    complex_tree.add_root(root_node4);
+    Node<Complex> n10{Complex(2, 2)};
+    Node<Complex> n11{Complex(3, 3)};
+    Node<Complex> n12{Complex(4, 4)};
+    Node<Complex> n13{Complex(5, 5)};
+    complex_tree.add_sub_node(root_node4, n10);
+    complex_tree.add_sub_node(root_node4, n11);
+    complex_tree.add_sub_node(n10, n12);
+    complex_tree.add_sub_node(n10, n13);
+    complex_tree.draw();
+
     return 0;
 }
