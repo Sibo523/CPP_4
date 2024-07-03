@@ -28,7 +28,7 @@ int main()
     tree.add_sub_node(n1, n4);
     tree.add_sub_node(n2, n5);
     std::cout << "\n";
-    // tree.draw();
+    tree.draw();
     // The tree should look like:
     /**
      *       root = 1.1
@@ -92,7 +92,7 @@ int main()
     three_ary_tree.add_sub_node(root_node2, n3);
     three_ary_tree.add_sub_node(n1, n4);
     three_ary_tree.add_sub_node(n2, n5);
-    // three_ary_tree.draw();
+    three_ary_tree.draw();
     // The tree should look like:
     /**
      *       root = 1.1

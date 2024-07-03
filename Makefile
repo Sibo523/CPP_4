@@ -8,7 +8,7 @@ OBJ_TEST = $(TEST_SRC:.cpp=.o)
 TARGET = main
 TEST_TARGET = test
 
-all: $(TEST_TARGET)
+all: $(TEST_TARGET) $(TARGET)
 
 $(TARGET): $(OBJ)
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -lsfml-graphics -lsfml-window -lsfml-system -o $@ $^

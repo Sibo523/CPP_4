@@ -2,6 +2,7 @@
 #include <vector>
 #include <queue>
 #include <stack>
+#include <algorithm>
 #include "Node.hpp"
 
 template <typename T>
@@ -361,42 +362,56 @@ private:
     std::stack<Node<T> *> stack;
     Node<T> *current;
 };
-
+// heapIterator class template for traversing trees in heap order.
 template <typename T>
 class heapIterator
 {
 public:
+    // Destructor: Clears the heap to prevent memory leaks.
     ~heapIterator()
     {
-        while (!queue.empty())
+        // Empties the heap vector by popping all elements.
+        while (!heap.empty())
         {
-            queue.pop();
+            heap.pop_back();
         }
     }
+
+    // Constructor: Initializes the iterator with the root node of a tree.
     heapIterator(Node<T> *root)
     {
+        // If the root is null, set the current node to null and return.
         if (root == nullptr)
         {
             current = nullptr;
             return;
         }
-        queue.push(root);
-        current = queue.top();
+        // Use a DFS iterator to populate the heap with all nodes in the tree.
+        for (auto it = DfsIterator<T>(root); it != DfsIterator<T>(nullptr); ++it)
+        {
+            heap.push_back(&(*it));
+        }
+        // Convert the vector into a heap using the Compare functor.
+        std::make_heap(heap.begin(), heap.end(), Compare());
+        // Set the current node to the top of the heap if not empty.
+        if (!heap.empty())
+        {
+            current = heap.front();
+        }
     }
 
+    // Prefix increment operator: Moves the iterator to the next node in heap order.
     heapIterator &operator++()
     {
-        if (!queue.empty())
+        // If the heap is not empty, adjust the heap and set the current node.
+        if (!heap.empty())
         {
-            current = queue.top();
-            queue.pop();
-            for (auto child : current->get_children())
+            std::pop_heap(heap.begin(), heap.end(), Compare()); // Move the largest element to the end.
+            heap.pop_back();                                    // Remove the largest element.
+            // Update the current node to the new top of the heap, if not empty.
+            if (!heap.empty())
             {
-                queue.push(child);
-            }
-            if (!queue.empty())
-            {
-                current = queue.top();
+                current = heap.front();
             }
             else
             {
@@ -410,22 +425,35 @@ public:
         return *this;
     }
 
+    // Dereference operator: Returns a reference to the current node.
     Node<T> &operator*()
     {
         return *current;
     }
 
+    // Inequality operator: Checks if two iterators are not equal based on their current nodes.
     bool operator!=(const heapIterator &other) const
     {
         return current != other.current;
     }
 
+    // Arrow operator: Provides pointer access to the current node.
     Node<T> *operator->()
     {
         return current;
     }
 
 private:
-    std::priority_queue<Node<T> *> queue; // queue = priority_queue just short :)
-    Node<T> *current;
+    // Compare functor for ordering nodes in the heap.
+    struct Compare
+    {
+        // Defines the comparison criteria for the heap (e.g., based on node values).
+        bool operator()(Node<T> *a, Node<T> *b) const
+        {
+            return *a > *b; // This needs to be defined according to the node comparison logic.
+        }
+    };
+
+    std::vector<Node<T> *> heap; // Vector to store nodes in heap order.
+    Node<T> *current = nullptr;  // Pointer to the current node in the iteration.
 };

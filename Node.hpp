@@ -36,6 +36,14 @@ public:
     {
         return t != other.t;
     }
+    bool operator<(const Node<T> &other) const
+    {
+        return t < other.t;
+    }
+    bool operator>(const Node<T> &other) const
+    {
+        return t > other.t;
+    }
 
 private:
     T t;

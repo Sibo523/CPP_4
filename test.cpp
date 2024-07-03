@@ -129,7 +129,7 @@ TEST_CASE("CHECK-ITERATORS")
                 heap += ", ";
             heap += std::to_string(node->get_value());
         }
-        CHECK(heap == "1, 3, 6, 2, 5, 4");
+        CHECK(heap == "1, 2, 3, 4, 5, 6");
     }
 }
 TEST_CASE("Complex Numbers Operations")
