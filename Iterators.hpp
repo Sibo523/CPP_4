@@ -219,8 +219,8 @@ public:
     }
 
 private:
-    std::stack<Node<T> *> stack;
-    std::stack<Node<T> *> temp_stack;
+    std::stack<Node<T> *> stack;      // instead of recursion
+    std::stack<Node<T> *> temp_stack; // the product of the unrecursion function.
     Node<T> *current;
 };
 
